@@ -1,4 +1,10 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { 
+  GoogleAuthProvider, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signInWithPopup, 
+  updateProfile 
+} from 'firebase/auth';
 import { FirebaseAuth } from './';
 
 const googleProvider = new GoogleAuthProvider();
@@ -33,7 +39,7 @@ export const registerUserWithEmailPassword = async ({ email, password, displayNa
     const { uid, photoURL } = result.user;
 
     // Para actualizar los datos del usuario loggeado
-    // Siempre que retorne osea una promesa se pone el await por delante
+    // Siempre que retorne una promesa se pone el await por delante
     await updateProfile(FirebaseAuth.currentUser, { displayName }); 
     return {
       ok: true,

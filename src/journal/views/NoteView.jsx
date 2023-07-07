@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import React from 'react'
+
 import { ImageGallery } from '../components';
 
 export const NoteView = () => {

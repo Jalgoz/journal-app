@@ -1,8 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { ANY_ROUTE, AUTH_LOGIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from '../../constants/routeConstants';
+
 import { Auth } from '../Auth';
 import { LoginPage, RegisterPage } from '../pages';
+import { ANY_ROUTE, AUTH_LOGIN_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from '../../constants/routeConstants';
 
 export const AuthRouter = [
   {

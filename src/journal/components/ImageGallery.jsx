@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+
 import { Grid, ImageList, ImageListItem } from '@mui/material';
 
 export const ImageGallery = () => {
