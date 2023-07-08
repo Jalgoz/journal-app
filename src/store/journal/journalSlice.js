@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isSaving: true,
+  isSaving: false,
   messageSaved: '',
   notes: [],
-  active: null
+  active: null,
   /* active: {
     id: 'ABC123',
     title: '',
@@ -19,11 +19,42 @@ export const journalSlice = createSlice({
   initialState,
   // All within the reducer have to be sync not async because it's a pure function
   reducers: {
-    addNewEmptyNote: ( state, action ) => {
-      state.value += 1;
+    savingNewNote: (state) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, action) => {
+      state.notes.push(action.payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, action) => {
+      state.active = action.payload;
+    },
+    setNotes: (state, action) => {
+      state.notes = action.payload;
+    },
+    setSaving: (state) => {
+      state.isSaving = true;
+    },
+    updateNote: (state, action) => {
+      state.isSaving = false;
+      state.notes = state.notes.map((note) =>
+        (note.id === action.payload.id) ? action.payload : note,
+      );
+    },
+    deleteNoteById: (state, action) => {
+      /* state.isSaving = false;
+      state.notes = state.notes.filter((note) => ) */
     },
   },
 });
 
-export const { template } = journalSlice.actions;
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
 export default journalSlice.reducer;

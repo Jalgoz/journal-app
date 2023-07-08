@@ -8,3 +8,6 @@ export const JOURNAL_ROUTE = '/';
 
 // Other routes
 export const ANY_ROUTE = '/*'; 
+
+// Path of the notes
+export const PATH_NOTES = (uid) => `${uid}/journal/notes`;

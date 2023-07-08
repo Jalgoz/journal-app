@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { FirebaseAuth } from "../firebase";
 import { login, logout } from "../store";
+import { startLoadingNotes } from "../store/journal/thunks";
 
 export const useCheckAuth = () => {
   const { status } = useSelector((state) => state.auth);
@@ -18,6 +19,7 @@ export const useCheckAuth = () => {
 
       const { uid, email, displayName, photoURL } = user;
       dispatch(login({ uid, email, displayName, photoURL }));
+      dispatch(startLoadingNotes());
     });
   }, []);
 
