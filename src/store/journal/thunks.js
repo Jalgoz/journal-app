@@ -1,6 +1,6 @@
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase';
-import { addNewEmptyNote, savingNewNote, setActiveNote, setImagesToActiveNote, setNotes, setSaving, updateNote } from './journalSlice';
+import { addNewEmptyNote, deleteNoteById, savingNewNote, setActiveNote, setImagesToActiveNote, setNotes, setSaving, updateNote } from './journalSlice';
 import { PATH_NOTES } from '../../constants/routeConstants';
 import { fileUpload, loadNotes } from '../../helpers';
 import { simpleErrorAlert, simpleSuccessAlert } from '../../helpers/alerts';
@@ -12,9 +12,11 @@ export const starNewNote = () => {
     // I fetch the auth state from the store
     dispatch(savingNewNote())
     const { uid } = getState().auth;
+    const { notes } = getState().journal;
+
     // uuid
     const newNote = {
-      title: '',
+      title: `Autogenerate ${notes.length + 1}`,
       body: '',
       imageUrls: [],
       date: new Date().getTime(),
@@ -87,6 +89,23 @@ export const startUploadingFiles = (files = []) => async(dispatch, getState) => 
     await simpleSaveNote(uid, noteToUpdate);
     await dispatch(setImagesToActiveNote(imageUrls));
     await dispatch(setNotes(notesUpdated));
+  } catch(error) {
+    simpleErrorAlert('Error', error);
+    dispatch(setSaving(false));
+  }
+};
+
+export const startDeletingNote = () => async(dispatch, getState) => {
+  const { uid } = getState().auth;
+  const { active: activeNote } = getState().journal;
+
+  const docRef = doc(FirebaseDB, `${PATH_NOTES(uid)}/${activeNote.id}`);
+  dispatch(setSaving(true));
+
+  try {
+    await deleteDoc(docRef);
+    dispatch(deleteNoteById(activeNote.id));
+    simpleSuccessAlert('Deleted!', 'Your note has been deleted');
   } catch(error) {
     simpleErrorAlert('Error', error);
     dispatch(setSaving(false));

@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { SaveOutlined, UploadOutlined } from '@mui/icons-material';
+import { Delete, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 
 import { ImageGallery } from '../components';
 import { useForm } from '../../hooks/useForm';
 import { setActiveNote } from '../../store/journal/journalSlice';
-import { startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
+import { startSaveNote, startUploadingFiles, startDeletingNote } from '../../store/journal/thunks';
+import { deleteAlert } from '../../helpers/alerts';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,13 @@ export const NoteView = () => {
       return; 
     }
     dispatch(startUploadingFiles(target.files));
+  };
+
+  const onDeleteNote = () => {
+    deleteAlert()
+      .then(() => {
+        dispatch(startDeletingNote());
+      });
   };
 
   useEffect(() => {
@@ -107,6 +115,18 @@ export const NoteView = () => {
           value={formState.body}
           onChange={onInputChange}
         />
+      </Grid>
+
+      <Grid container justifyContent="end">
+        <Button
+          onClick={onDeleteNote}
+          color="error"
+          sx={{ mt: 2}}
+          disabled={isSaving}
+        >
+          <Delete sx={{ mr: .7 }} />
+          Delete
+        </Button>
       </Grid>
 
       <ImageGallery images={note.imageUrls} />
