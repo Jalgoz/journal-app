@@ -15,9 +15,9 @@ const formData = {
 }
 
 const formValidation = {
-  email: [ (value) => value?.includes('@'), 'El correo debe de tener un @'],
-  password: [ (value) => value?.length >= 6, 'El password debe de tener más de 6 letras'],
-  displayName: [ (value) => value?.length >= 1, 'El nombre es obligatorio'],
+  email: [ (value) => value?.includes('@'), 'The email must contain the @ symbol'],
+  password: [ (value) => value?.length >= 6, 'The password must have more than 6 characters'],
+  displayName: [ (value) => value?.length >= 1, 'The name is required'],
 }
 
 export const RegisterPage = () => {
@@ -47,12 +47,12 @@ export const RegisterPage = () => {
   };
 
   return (
-    <AuthLayout title="Crear cuenta">
+    <AuthLayout title="Create an account">
       <form onSubmit={onHandleSubmit} className="animate__animated animate__fadeIn animate__faster">
           <Grid container>
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} mt={2}>
               <TextField
-               label="Nombre completo" 
+               label="Full name" 
                type="text" 
                placeholder="Jose Lozada"
                name="displayName"
@@ -64,9 +64,9 @@ export const RegisterPage = () => {
                />
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} mt={2}>
               <TextField 
-                label="Correo" 
+                label="Email" 
                 type="email" 
                 placeholder="correo@google.com"
                 name="email"
@@ -77,7 +77,7 @@ export const RegisterPage = () => {
                 fullWidth/>
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} mt={2}>
               <TextField 
                 label="Password" 
                 type="password" 
@@ -90,22 +90,22 @@ export const RegisterPage = () => {
                 fullWidth/>
             </Grid>
 
-            <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
+            <Grid container spacing={ 2 } mb={2} mt={1}>
               <Grid item xs={12} display={!errorMessage ? 'none' : ''}>
                 <Alert severity="error">{errorMessage}</Alert>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <Button disabled={isCheckingAuthenticated} type="submit" variant="contained" fullWidth>
-                  Crear cuenta
+                  Register
                 </Button>
               </Grid>
             </Grid>
 
-            <Grid container direction="row" justifyContent="end">
-              <Typography sx={{ mr: 1 }}>Ya tienes cuenta?</Typography>
+            <Grid container direction="row" justifyContent="center">
+              <Typography mr={2}>Do you have an account?</Typography>
               <Link component={RouterLink} color="inherit" to={LOGIN_ROUTE}>
-                ingresar
+                Log in
               </Link>
             </Grid> 
           </Grid>

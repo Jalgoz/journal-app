@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Grid, Typography } from '@mui/material';
 
+import { formStyle, gridAuthLayoutStyle } from './styles';
+
 export const AuthLayout = ({ children, title = '' }) => {
   return (
     <Grid
@@ -11,15 +13,15 @@ export const AuthLayout = ({ children, title = '' }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+      sx={gridAuthLayoutStyle}
     >
       <Grid
         item
         className="box-shadow"
         xs={3}
-        sx={{ width: { md: 450 },backgroundColor: 'white', padding: 3, borderRadius: 2 }}
+        sx={formStyle}
       >
-        <Typography variant="h5" sx={{ mb: 1 }}>{ title }</Typography>
+        <Typography variant="h5" mb={1}>{ title }</Typography>
         {children}
       </Grid>
     </Grid>

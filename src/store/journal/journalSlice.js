@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isSaving: false,
-  messageSaved: '',
   notes: [],
   active: null,
   /* active: {
@@ -32,14 +31,19 @@ export const journalSlice = createSlice({
     setNotes: (state, action) => {
       state.notes = action.payload;
     },
-    setSaving: (state) => {
-      state.isSaving = true;
+    setSaving: (state, action) => {
+      state.isSaving = action.payload;
     },
     updateNote: (state, action) => {
       state.isSaving = false;
       state.notes = state.notes.map((note) =>
         (note.id === action.payload.id) ? action.payload : note,
       );
+    },
+    setImagesToActiveNote: (state, action) => {
+      state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
+      console.log(state.active);
+      state.isSaving = false;
     },
     deleteNoteById: (state, action) => {
       /* state.isSaving = false;
@@ -53,6 +57,7 @@ export const {
   deleteNoteById,
   savingNewNote,
   setActiveNote,
+  setImagesToActiveNote,
   setNotes,
   setSaving,
   updateNote,

@@ -36,11 +36,11 @@ export const LoginPage = () => {
     <AuthLayout title="Login">
       <form onSubmit={onHandleSubmit} className="animate__animated animate__fadeIn">
           <Grid container>
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} mt={2}>
               <TextField 
-                label="Correo" 
+                label="Email" 
                 type="email" 
-                placeholder="correo@google.com" 
+                placeholder="email@google.com" 
                 fullWidth
                 name="email"
                 value={email}
@@ -48,7 +48,7 @@ export const LoginPage = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} mt={2}>
               <TextField 
                 label="Password" 
                 type="password" 
@@ -60,7 +60,7 @@ export const LoginPage = () => {
               />
             </Grid>
 
-            <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
+            <Grid container spacing={ 2 } mb={2} mt={1}>
               <Grid item xs={12} display={!!errorMessage ? '' : 'none'}>
                 <Alert severity="error">{errorMessage}</Alert>
               </Grid>
@@ -74,14 +74,14 @@ export const LoginPage = () => {
               <Grid item xs={12} sm={6}>
                 <Button disabled={isAuthenticated} variant="contained" fullWidth onClick={onHandleGoogleSignIn}>
                   <Google />
-                  <Typography sx={{ ml: 1 }}>Google</Typography>
+                  <Typography ml={1}>Google</Typography>
                 </Button>
               </Grid>
             </Grid>
 
             <Grid container direction="row" justifyContent="end">
               <Link component={RouterLink} color="inherit" to={REGISTER_ROUTE}>
-                Crear una cuenta
+                Create an account
               </Link>
             </Grid>
           </Grid>

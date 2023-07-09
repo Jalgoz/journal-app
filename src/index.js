@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles.css';
 import reportWebVitals from './reportWebVitals';
-import { JournalApp } from './JournalApp';
 import { Provider } from 'react-redux';
+
+import { JournalApp } from './JournalApp';
 import { store } from './store';
 import { AppTheme } from './theme';
+
+import './styles.css';
+import 'sweetalert2/dist/sweetalert2.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,31 +1,41 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { SaveOutlined } from '@mui/icons-material';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { SaveOutlined, UploadOutlined } from '@mui/icons-material';
+import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 
 import { ImageGallery } from '../components';
 import { useForm } from '../../hooks/useForm';
 import { setActiveNote } from '../../store/journal/journalSlice';
-import { startSaveNote } from '../../store/journal/thunks';
+import { startSaveNote, startUploadingFiles } from '../../store/journal/thunks';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
   const { active: note, isSaving } = useSelector((state) => state.journal);
   const { onInputChange, formState } = useForm(note);
+  // We use the useRef to simulate a click when we click on customize button to upload the images
+  const fileInputRef = useRef();
 
+  // const noteWithImageUrls = notes.find((note) => note.id === formState.id);
   const dateString = useMemo(() => {
     const newDate = new Date(formState.date);
     return newDate.toUTCString();
   }, [formState.date]);
 
+  const onSaveNote = async () => {
+    dispatch(startSaveNote(formState));
+  };
+
+  const onFileInputChange = ({ target }) => {
+    if (target.files === 0) { 
+      return; 
+    }
+    dispatch(startUploadingFiles(target.files));
+  };
+
   useEffect(() => {
     dispatch(setActiveNote(formState));
-  }, [formState]);
-
-  const onSaveNote = () => {
-    dispatch(startSaveNote());
-  };
+  }, [formState, dispatch]);
 
   return (
     <Grid 
@@ -41,13 +51,31 @@ export const NoteView = () => {
       </Grid>
 
       <Grid item>
+        <input 
+          type="file" 
+          multiple
+          // We create the ref
+          ref={fileInputRef}
+          onChange={onFileInputChange} 
+          style={{ display: 'none' }}
+        />
+
+        <IconButton 
+          color="primary" 
+          disabled={isSaving}
+          // We call the ref and we simulate the click
+          onClick={() => fileInputRef.current.click()}
+        >
+          <UploadOutlined />
+        </IconButton>
+
         <Button 
           color="primary" 
-          sx={{ padding: 2 }}
-          onClick={ onSaveNote }
-          disabled={ isSaving }
+          sx={{padding: 2}}
+          onClick={onSaveNote}
+          disabled={isSaving}
         >
-          <SaveOutlined sx={{ fontSize: 30, mr: 1 }}/>
+          <SaveOutlined sx={{fontSize: 30, mr: 1}}/>
           Save
         </Button>
       </Grid>
@@ -59,7 +87,7 @@ export const NoteView = () => {
           fullWidth 
           placeholder="Enter title"
           label="title"
-          sx={{ border: 'none', mb: 1 }}
+          sx={{border: 'none', mb: 1}}
           name="title"
           value={formState.title}
           onChange={onInputChange}
@@ -74,15 +102,14 @@ export const NoteView = () => {
           multiline
           placeholder="What happen today?"
           minRows={5}
-          sx={{ border: 'none', mb: 1 }}
+          sx={{border: 'none', mb: 1}}
           name="body"
           value={formState.body}
           onChange={onInputChange}
         />
       </Grid>
 
-      {/* Image gallery */}
-      <ImageGallery />
+      <ImageGallery images={note.imageUrls} />
     </Grid>
   );
 };

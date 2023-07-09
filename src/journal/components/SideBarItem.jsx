@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { TurnedInNot } from '@mui/icons-material';
 import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+
 import { setActiveNote } from '../../store/journal/journalSlice';
 
 const sliceText = (text, limit) => {
@@ -21,7 +22,7 @@ export const SideBarItem = ({ note }) => {
   }, [note.body]);
 
   const onClickNote = () => {
-    dispatch(setActiveNote({ ...note, imageUrls: [] }));
+    dispatch(setActiveNote({ ...note }));
   };
 
   return (
