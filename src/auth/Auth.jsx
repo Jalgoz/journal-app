@@ -12,7 +12,7 @@ export const Auth = () => {
     if (status !== 'not-authenticated') {
       return navigate(JOURNAL_ROUTE);
     }
-  }, [status]);
+  }, [navigate, status]);
 
   return <Outlet />;
 };

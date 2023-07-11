@@ -42,7 +42,6 @@ export const journalSlice = createSlice({
     },
     setImagesToActiveNote: (state, action) => {
       state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
-      console.log(state.active);
       state.isSaving = false;
     },
     clearNotesLogout: (state) => {

@@ -6,7 +6,7 @@ import { AddOutlined } from '@mui/icons-material';
 
 import { JournalLayout } from '../layout/JournalLayout';
 import { NoteView, NothingSelectedView } from '../views';
-import { starNewNote } from '../../store/journal/thunks';
+import { startNewNote } from '../../store/journal/thunks';
 
 import { addIconButtonStyle } from './style';
 
@@ -15,12 +15,12 @@ export const JournalPage = () => {
   const { isSaving, active } = useSelector((state) => state.journal);
 
   const onClickNewNote = () => {
-    dispatch(starNewNote());
+    dispatch(startNewNote());
   };
 
   return (
     <JournalLayout>
-      {(active !== null) ? <NoteView /> : <NothingSelectedView />}
+      {active !== null ? <NoteView /> : <NothingSelectedView />}
 
       <IconButton
         onClick={onClickNewNote}
