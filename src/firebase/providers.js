@@ -34,12 +34,12 @@ export const signInWithGoogle = async() => {
 
 export const registerUserWithEmailPassword = async ({ email, password, displayName }) => {
   try{
-    // Función de firebase para crear un usuario
+    // Function of firebase to create an user
     const result = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
     const { uid, photoURL } = result.user;
 
-    // Para actualizar los datos del usuario loggeado
-    // Siempre que retorne una promesa se pone el await por delante
+    // To update the user data
+    // Always that return a promise we put await in the begging
     await updateProfile(FirebaseAuth.currentUser, { displayName }); 
     return {
       ok: true,
