@@ -2,7 +2,13 @@ import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { TurnedInNot } from '@mui/icons-material';
-import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { 
+  Grid, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText 
+} from '@mui/material';
 
 import { setActiveNote } from '../../store/journal/journalSlice';
 

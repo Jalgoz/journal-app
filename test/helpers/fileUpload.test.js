@@ -12,7 +12,7 @@ cloudinary.config({
   cloud_name: 'dd43vyozx',
   api_key: '919237252675194',
   api_secret: 'KqlPar0Tv-0cuuMBMXK85XEiK7U',
-  secure: true
+  secure: true,
 });
 
 // Mock the simpleErrorAlert function
@@ -28,7 +28,8 @@ describe('Testing in fileUpload', () => {
 
   xit('should upload a file successfully to cloudinary', async () => {
     // Url image
-    const imageUrl = 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png';
+    const imageUrl =
+      'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png';
     // Get the image
     const resp = await fetch(imageUrl);
     // Get the bytes of the image

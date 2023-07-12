@@ -15,7 +15,8 @@ describe('Testing in journal thunks', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  it('should create a new note in blank when we call startNewNote', async () => {
+  it('should create a new note in blank when we call startNewNote', 
+  async () => {
     const uid = 'TEST_UID';
     const note = {
       title: `Autogenerate ${notes.length + 1}`,
@@ -36,8 +37,6 @@ describe('Testing in journal thunks', () => {
     // Delete from firebase
     const collectionRef = collection(FirebaseDB, PATH_NOTES(uid));
     const docs = await getDocs(collectionRef);
-
-    console.log(process.env.REACT_APP_PROJECT_ID);
 
     const deletePromises = [];
     docs.forEach((doc) => deletePromises.push(deleteDoc(doc.ref)));

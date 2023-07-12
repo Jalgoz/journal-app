@@ -1,6 +1,21 @@
-import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from '../../../src/firebase';
-import { checkingCredentials, login, logout } from '../../../src/store/auth/authSlice';
-import { checkingAuthentication, startCreatingUserWithEmailPassword, startGoogleSignIn, startLoginWithEmailPassword, startLogout } from '../../../src/store/auth/thunks';
+import {
+  loginWithEmailPassword,
+  logoutFirebase,
+  registerUserWithEmailPassword,
+  signInWithGoogle,
+} from '../../../src/firebase';
+import {
+  checkingCredentials,
+  login,
+  logout,
+} from '../../../src/store/auth/authSlice';
+import {
+  checkingAuthentication,
+  startCreatingUserWithEmailPassword,
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+  startLogout,
+} from '../../../src/store/auth/thunks';
 import { clearNotesLogout } from '../../../src/store/journal/journalSlice';
 import { demoUser } from '../../fixtures/authFixtures';
 
@@ -39,11 +54,12 @@ describe('Testing in auth Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(logout(loginData));
   });
 
-  it('should invoke startCreatingUserWithEmailPassword with result OK', async () => {
-    const user = { 
-      email: demoUser.email, 
-      displayName: demoUser.displayName, 
-      password: '12345678' 
+  it('should invoke startCreatingUserWithEmailPassword with result OK', 
+  async () => {
+    const user = {
+      email: demoUser.email,
+      displayName: demoUser.displayName,
+      password: '12345678',
     };
     const returnData = { ok: true, ...demoUser };
 
@@ -53,21 +69,23 @@ describe('Testing in auth Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(login(returnData));
   });
 
-  it('should invoke startCreatingUserWithEmailPassword with result ERROR', async () => {
-    const user = { 
-      email: demoUser.email, 
-      displayName: demoUser.displayName, 
-      password: '12345678' 
+  it('should invoke startCreatingUserWithEmailPassword with result ERROR', 
+  async () => {
+    const user = {
+      email: demoUser.email,
+      displayName: demoUser.displayName,
+      password: '12345678',
     };
     const returnData = { ok: false, errorMessage: 'Error' };
 
     await registerUserWithEmailPassword.mockResolvedValue(returnData);
     await startCreatingUserWithEmailPassword(user)(dispatch);
-    
+
     expect(dispatch).toHaveBeenCalledWith(logout(returnData));
   });
 
-  it('should invoke startLoginWithEmailPassword with result OK', async () => {
+  it('should invoke startLoginWithEmailPassword with result OK', 
+  async () => {
     const loginData = { ok: true, ...demoUser };
     const formData = { email: demoUser.email, password: '12345678' };
 
@@ -77,7 +95,8 @@ describe('Testing in auth Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(login(loginData));
   });
 
-  it('should invoke startLoginWithEmailPassword with result ERROR', async () => {
+  it('should invoke startLoginWithEmailPassword with result ERROR', 
+  async () => {
     const loginData = { ok: false, errorMessage: 'Error' };
     const formData = { email: demoUser.email, password: '12345678' };
 

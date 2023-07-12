@@ -24,7 +24,9 @@ export const SideBar = ({ drawerWidth = 240 }) => {
         open 
         sx={drawerStyle(drawerWidth)}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">{displayName}</Typography>
+          <Typography variant="h6" noWrap component="div">
+            {displayName}
+          </Typography>
         </Toolbar>
 
         <Divider />

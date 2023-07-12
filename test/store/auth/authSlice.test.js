@@ -4,7 +4,12 @@ import {
   initialState,
   notAuthenticatedState,
 } from '../../fixtures/authFixtures';
-import { authSlice, checkingCredentials, login, logout } from '../../../src/store/auth/authSlice';
+import {
+  authSlice,
+  checkingCredentials,
+  login,
+  logout,
+} from '../../../src/store/auth/authSlice';
 
 describe('Testing in authSlice', () => {
   it('should return the initial state and called "auth"', () => {
@@ -39,7 +44,10 @@ describe('Testing in authSlice', () => {
 
   it('should do the logout with message error', () => {
     const errorMessage = 'Wrong credential';
-    const state = authSlice.reducer(authenticatedState, logout({ errorMessage }));
+    const state = authSlice.reducer(
+      authenticatedState,
+      logout({ errorMessage }),
+    );
 
     expect(state).toEqual({
       ...notAuthenticatedState,

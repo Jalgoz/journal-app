@@ -10,7 +10,11 @@ import {
   setSaving,
   updateNote,
 } from '../../../src/store/journal/journalSlice';
-import { initialState, notes, stateWithNotes } from '../../fixtures/journalFixtures';
+import {
+  initialState,
+  notes,
+  stateWithNotes,
+} from '../../fixtures/journalFixtures';
 
 describe('Testing in journalSlice', () => {
   it('should return the initial state and called "journal"', () => {
@@ -60,21 +64,29 @@ describe('Testing in journalSlice', () => {
 
   it('should update the notes when we call updateNote', () => {
     const noteToUpdate = { ...notes[1], title: 'Title updated' };
-    const state = journalSlice.reducer(stateWithNotes, updateNote(noteToUpdate));
+    const state = journalSlice.reducer(
+      stateWithNotes,
+      updateNote(noteToUpdate),
+    );
 
     expect(state.notes).toEqual([notes[0], noteToUpdate]);
   });
 
-  it('should add new imageUrls to the active note when we call setImagesToActiveNote', () => {
+  it('should add new imageUrls to the active note when we call setImagesToActiveNote', 
+  () => {
     const newImageUrl = ['https://foto3.jpg'];
-    const state = journalSlice.reducer(stateWithNotes, setImagesToActiveNote(newImageUrl));
+    const state = journalSlice.reducer(
+      stateWithNotes,
+      setImagesToActiveNote(newImageUrl),
+    );
     const actualLength = state.active.imageUrls.length;
 
     expect(actualLength).toBe(stateWithNotes.active.imageUrls.length + 1);
     expect(state.active.imageUrls).toContain(newImageUrl[0]);
   });
 
-  it('should clear all the notes and active when we call clearNotesLogout', () => {
+  it('should clear all the notes and active when we call clearNotesLogout', 
+  () => {
     const state = journalSlice.reducer(stateWithNotes, clearNotesLogout());
 
     expect(state).toEqual(initialState);

@@ -94,7 +94,10 @@ export const startUploadingFiles =
       };
       const notesUpdated = notes.map((note) =>
         note.id === activeNote.id
-          ? { ...activeNote, imageUrls: [...imageUrls, ...activeNote.imageUrls] }
+          ? {
+              ...activeNote,
+              imageUrls: [...imageUrls, ...activeNote.imageUrls],
+            }
           : note,
       );
 

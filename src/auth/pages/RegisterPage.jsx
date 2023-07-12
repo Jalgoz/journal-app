@@ -1,11 +1,17 @@
 import React, { useMemo, useState } from 'react';
-import { AuthLayout } from '../layout/AuthLayout';
-import { Link as RouterLink } from "react-router-dom";
-import { Alert, Button, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../../constants/routeConstants';
-import { useForm } from '../../hooks';
+import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
+import { useForm } from '../../hooks';
+import { AuthLayout } from '../layout/AuthLayout';
+import { LOGIN_ROUTE } from '../../constants/routeConstants';
 import { startCreatingUserWithEmailPassword } from '../../store';
 
 const formData = {
@@ -15,9 +21,18 @@ const formData = {
 }
 
 const formValidation = {
-  email: [ (value) => value?.includes('@'), 'The email must contain the @ symbol'],
-  password: [ (value) => value?.length >= 6, 'The password must have more than 6 characters'],
-  displayName: [ (value) => value?.length >= 1, 'The name is required'],
+  email: [ 
+    (value) => value?.includes('@'), 
+    'The email must contain the @ symbol'
+  ],
+  password: [ 
+    (value) => value?.length >= 6, 
+    'The password must have more than 6 characters'
+  ],
+  displayName: [ 
+    (value) => value?.length >= 1, 
+    'The name is required'
+  ],
 }
 
 export const RegisterPage = () => {
@@ -36,7 +51,9 @@ export const RegisterPage = () => {
     passwordValid, 
   } = useForm(formData, formValidation);
 
-  const isCheckingAuthenticated = useMemo(() => status === 'checking', [status]);
+  const isCheckingAuthenticated = useMemo(
+    () => status === 'checking', [status]
+  );
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
@@ -48,7 +65,10 @@ export const RegisterPage = () => {
 
   return (
     <AuthLayout title="Create an account">
-      <form onSubmit={onHandleSubmit} className="animate__animated animate__fadeIn animate__faster">
+      <form 
+        onSubmit={onHandleSubmit} 
+        className="animate__animated animate__fadeIn animate__faster"
+      >
           <Grid container>
             <Grid item xs={12} mt={2}>
               <TextField
@@ -96,7 +116,12 @@ export const RegisterPage = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button disabled={isCheckingAuthenticated} type="submit" variant="contained" fullWidth>
+                <Button 
+                  disabled={isCheckingAuthenticated} 
+                  type="submit" 
+                  variant="contained" 
+                  fullWidth
+                >
                   Register
                 </Button>
               </Grid>
