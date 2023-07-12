@@ -10,10 +10,6 @@ import { AppTheme } from './theme';
 import './styles.css';
 import 'sweetalert2/dist/sweetalert2.css';
 
-
-console.log(process.env.NODE_ENV === 'development');
-//
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
