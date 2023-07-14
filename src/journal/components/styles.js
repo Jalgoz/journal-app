@@ -28,7 +28,19 @@ export const imageListStyle = {
   },
 };
 
+// ImageItem
 export const imageStyle = {
   maxWidth: '100%',
   maxHeight: '100%',
+};
+
+export const iconDeleteImage = {
+  position: 'absolute', 
+  right: 2, 
+  top: 2, 
+  cursor: 'pointer',
+  transition: '.3s',
+  '&:hover': {
+    color: '#555'
+  }
 };

@@ -1,14 +1,12 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Delete, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 
+import useNoteView from './useNoteView';
 import { ImageGallery } from '../components';
 import { useForm } from '../../hooks/useForm';
-import { setActiveNote } from '../../store/journal/journalSlice';
-import { startSaveNote, startUploadingFiles, startDeletingNote } from '../../store/journal/thunks';
-import { deleteAlert } from '../../helpers/alerts';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
@@ -17,33 +15,12 @@ export const NoteView = () => {
   // We use the useRef to simulate a click when we click on customize button to upload the images
   const fileInputRef = useRef();
 
-  // const noteWithImageUrls = notes.find((note) => note.id === formState.id);
-  const dateString = useMemo(() => {
-    const newDate = new Date(formState.date);
-    return newDate.toUTCString();
-  }, [formState.date]);
-
-  const onSaveNote = async () => {
-    dispatch(startSaveNote(formState));
-  };
-
-  const onFileInputChange = ({ target }) => {
-    if (target.files === 0) { 
-      return; 
-    }
-    dispatch(startUploadingFiles(target.files));
-  };
-
-  const onDeleteNote = () => {
-    deleteAlert()
-      .then(() => {
-        dispatch(startDeletingNote());
-      });
-  };
-
-  useEffect(() => {
-    dispatch(setActiveNote(formState));
-  }, [formState, dispatch]);
+  const {
+    dateString,
+    onDeleteNote,
+    onFileInputChange,
+    onSaveNote
+  } = useNoteView(formState, dispatch);
 
   return (
     <Grid 

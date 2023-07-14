@@ -1,3 +1,4 @@
+// import cloudinary from '../../cloudinary/config';
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase';
 import {
@@ -125,6 +126,13 @@ export const startDeletingNote = () => async (dispatch, getState) => {
     simpleErrorAlert('Error', error);
     dispatch(setSaving(false));
   }
+};
+
+export const startDeletingImage = (url) => async(dispatch, getState) => {
+  const segments = url.split('/');
+  const publicId = segments[segments.length - 1].split('.')[0];
+
+  // await cloudinary.api.delete_resources(['journal/' + publicId]);
 };
 
 const simpleSaveNote = async (userId, note) => {
